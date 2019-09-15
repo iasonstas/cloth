@@ -1,22 +1,18 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import Homepage from "./pages/homepage/homepage.component";
+import HomePage from "./pages/homepage/homepage.component";
+import ShopPage from "./pages/shop/shop.component.jsx";
 import "./App.css";
 
-const HatsPage = () => (
-  <div>
-    <h1>HATSPAGE</h1>
-  </div>
-);
 function App() {
   return (
     <div>
       {/* The moment switch sees smthing(path) match- It renders only that and stops */}
       <Switch>
-        <Route exact path="/" component={Homepage} />{" "}
+        <Route exact path="/" component={HomePage} />{" "}
         {/* Exact={true} or false It means the path we see exactly. Dont stop at the first*/}
-        <Route exact path="/hats" component={HatsPage} />
+        <Route exact path="/shop" component={ShopPage} />
       </Switch>
     </div>
   );
