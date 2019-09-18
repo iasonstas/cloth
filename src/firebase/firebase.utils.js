@@ -3,11 +3,7 @@ import "firebase/firestore";
 
 import "firebase/auth";
 
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!
-_ CONFIG _
-!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+// ~~~~~~~~~~~~~~~~~Config goes here.~~~~~~~~~~~~~~~~
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
