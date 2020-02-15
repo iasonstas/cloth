@@ -13,6 +13,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 
 import './App.css';
+
 class App extends React.Component {
   //we should unmount the user for NO MEMORY LEAKS.
   unsubscribeFromAuth = null;
@@ -31,9 +32,8 @@ class App extends React.Component {
           });
         });
         // console.log(this.state); //currentUser= null because it is asynchronous.
-      } else {
-        setCurrentUser(userAuth);
       }
+      setCurrentUser(userAuth);
     });
   }
 
