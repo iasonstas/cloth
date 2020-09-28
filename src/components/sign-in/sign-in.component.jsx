@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import FormInput from "../form-input/form-input.component";
-import CustomButton from "../custom-button/custom-button.component";
+import React, { Component } from 'react';
+import FormInput from '../form-input/form-input.component';
+import CustomButton from '../custom-button/custom-button.component';
 
-import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 
-import "./sign-in.styles.scss";
+import './sign-in.styles.scss';
 
 export default class SignIn extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     };
   }
 
@@ -21,11 +21,11 @@ export default class SignIn extends Component {
     const { email, password } = this.state;
     try {
       await auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: "", password: "" });
+      this.setState({ email: '', password: '' });
     } catch (error) {
       console.log(error);
     }
-    this.setState({ email: "", password: "" });
+    this.setState({ email: '', password: '' });
   };
 
   handleChange = event => {
@@ -60,8 +60,8 @@ export default class SignIn extends Component {
           <div className="buttons">
             <CustomButton type="submit"> Sign In </CustomButton>
             <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
-              {" "}
-              Sign In with Google{" "}
+              {' '}
+              Sign In with Google{' '}
             </CustomButton>
           </div>
         </form>
