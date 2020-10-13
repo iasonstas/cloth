@@ -18,24 +18,24 @@ class App extends React.Component {
   //we should unmount the user for NO MEMORY LEAKS.
   unsubscribeFromAuth = null;
 
-  componentDidMount() {
-    const { setCurrentUser } = this.props;
-    //once component calls fetch it wont call it again until mounts
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+  // componentDidMount() {
+  //   const { setCurrentUser } = this.props;
+  //   //once component calls fetch it wont call it again until mounts
+  //   this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+  //     if (userAuth) {
+  //       const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
-          });
-        });
-        // console.log(this.state); //currentUser= null because it is asynchronous.
-      }
-      setCurrentUser(userAuth);
-    });
-  }
+  //       userRef.onSnapshot(snapShot => {
+  //         setCurrentUser({
+  //           id: snapShot.id,
+  //           ...snapShot.data()
+  //         });
+  //       });
+  //       // console.log(this.state); //currentUser= null because it is asynchronous.
+  //     }
+  //     setCurrentUser(userAuth);
+  //   });
+  // }
 
   componentWillUnmount() {
     this.unsubscribeFromAuth();
@@ -48,19 +48,13 @@ class App extends React.Component {
         {/* Exact={true} or false It means the path we see exactly. Dont stop at the first*/}
         <Header />
         <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
+          <Route exact path="/" component={HomePage} />
+          <Route path="/shop" component={ShopPage} />
+          <Route exact path="/checkout" component={CheckoutPage} />
           <Route
             exact
-            path='/signin'
-            render={() =>
-              this.props.currentUser ? (
-                <Redirect to='/' />
-              ) : (
-                <SignInAndSignUpPage />
-              )
-            }
+            path="/signin"
+            render={() => (this.props.currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />)}
           />
         </Switch>
       </div>
