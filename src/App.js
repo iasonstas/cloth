@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -13,39 +13,26 @@ import { checkUserSession } from './redux/user/user.actions';
 
 import './App.css';
 
-class App extends React.Component {
-  //we should unmount the user for NO MEMORY LEAKS.
-  unsubscribeFromAuth = null;
-
-  componentDidMount() {
-    const { checkUserSession } = this.props;
+const App = ({ checkUserSession, currentUser }) => {
+  useEffect(() => {
     checkUserSession();
-  }
+  }, [checkUserSession]);
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+  return (
+    <div>
+      {/* The moment switch sees smthing(path) match- It renders only that and stops */}
+      {/* Exact={true} or false It means the path we see exactly. Dont stop at the first*/}
+      <Header />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
+        <Route exact path="/signin" render={() => (currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />)} />
+      </Switch>
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div>
-        {/* The moment switch sees smthing(path) match- It renders only that and stops */}
-        {/* Exact={true} or false It means the path we see exactly. Dont stop at the first*/}
-        <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckoutPage} />
-          <Route
-            exact
-            path="/signin"
-            render={() => (this.props.currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />)}
-          />
-        </Switch>
-      </div>
-    );
-  }
-}
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
